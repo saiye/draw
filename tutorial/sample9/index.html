@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="myCanvas" width="800" height="500" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+</body>
+<script>
+    //https://blog.csdn.net/qq_45562973/article/details/124169184
+    let c = document.getElementById("myCanvas");
+    let ctx = c.getContext("2d");
+    let h = 500;
+    let w = 800;
+
+    let x = 200
+    let y = 350
+
+    let r = 50
+    let acrMin = r / 2;
+    let arcMaxX = (w - r / 2)
+    let arcMaxY = (h - r / 2)
+
+    setInterval(function () {
+        x = rand(acrMin, arcMaxX)
+        y = rand(acrMin, arcMaxY)
+        r = rand(1, 200)
+        drawArc(h, w, x, y, r)
+    }, 100)
+
+    function drawArc(h, w, x, y, r) {
+        //  let maxW = x > y ? x : y
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, 2 * Math.PI);
+        ctx.stroke();
+        // ctx.clearRect(0, 0, maxW, maxW);
+    }
+
+    function rand(m, n) {
+        return Math.ceil(Math.random() * (n - m + 1) + m - 1)
+    }
+
+</script>
+</html>
