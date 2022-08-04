@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="myCanvas" width="800" height="500" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+</body>
+<script>
+  //https://blog.csdn.net/qq_45562973/article/details/124169184
+  let canvas = document.getElementById('myCanvas')
+  let ctx = canvas.getContext('2d')
+  ctx.strokeStyle = '#d0e69c'
+
+  /*  draw(0, 0, 100, 200)
+    draw(0, 0, 100, 300)*/
+
+  //单击任意一个鼠标按钮时发生
+  canvas.onmousedown = function (e) {
+    startX = e.clientX - canvas.offsetLeft
+    startY = e.clientY - canvas.offsetTop
+    ctx.moveTo(startX, startY)
+    //随心画图，鼠标在某个元素上时持续发生
+    document.onmousemove = function (e) {
+      ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop)
+      ctx.stroke()
+
+      document.onmouseup = function (e) {
+        //起点，到终点两点直线
+/*        ctx.moveTo(startX, startY)
+        ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop)
+        ctx.stroke()*/
+        document.onmousedown = null
+        document.onmousemove = null
+      }
+    }
+  }
+
+  function draw (startX, startY, endX, endY) {
+    ctx.moveTo(startX, startY)
+    ctx.lineTo(endX, endY)
+    ctx.stroke()
+  }
+
+  function rand (m, n) {
+    return Math.ceil(Math.random() * (n - m + 1) + m - 1)
+  }
+
+</script>
+</html>
