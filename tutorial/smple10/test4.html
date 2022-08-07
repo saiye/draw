@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="myCanvas" width="800" height="1000" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+</body>
+<script>
+    let canvas = document.getElementById('myCanvas')
+    let ctx = canvas.getContext('2d')
+    draw(ctx)
+
+    function draw(ctx) {
+        if (canvas.getContext) {
+            ctx.translate(400, 500);
+            for (let i = 1; i < 20; i++) { // Loop through rings (from inside to out)
+                ctx.save();
+                ctx.fillStyle = 'rgb(' + (51 * i) + ',' + (255 - 51 * i) + ',255)';
+                for (let j = 0; j < i * 6; j++) { // draw individual dots
+                    ctx.rotate(Math.PI * 2 / (i * 6));
+                    ctx.beginPath();
+                    ctx.arc(0, i * 12.5, 5, 0, Math.PI * 2, true);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+    }
+
+    document.addEventListener("keydown", function(e) {
+        if (e.keyCode == 13) {
+            toggleFullScreen();
+        }
+    }, false);
+
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+
+</script>
+</html>
